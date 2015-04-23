@@ -37,7 +37,10 @@ import java.util.ArrayList;
 %%
 
 ":"     {tokens.add(":");System.out.println("DOS PUNTOS");}
-":"     {tokens.add(";");System.out.println("PUNTO Y COMA");}
+";"     {tokens.add(";");System.out.println("PUNTO Y COMA");}
 [A-Z a-z]+  {tokens.add("id"); System.out.println("IDENTIFICADOR");}
+[0-9]+  {tokens.add("num"); System.out.println("NUMEROS");}
 "<"     {tokens.add("<");System.out.println("MENOR QUE");}
 ">"     {tokens.add(">");System.out.println("MAYOR QUE");}
+"%%"     {tokens.add("%%");System.out.println("DOBRE PORCENTAJE");}
+"=="     {tokens.add("==");System.out.println("IGUAL QUE");}
