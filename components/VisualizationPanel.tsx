@@ -171,7 +171,7 @@ const VisualizationPanel: React.FC<VisualizationPanelProps> = ({
             </div>
         </div>
       </div>
-      <div className="space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Image Section */}
         <div className="w-full">
           {isLoadingImage ? (
@@ -180,25 +180,28 @@ const VisualizationPanel: React.FC<VisualizationPanelProps> = ({
               <p className="mt-4 text-gray-400">Generating image...</p>
             </div>
           ) : imageUrl ? (
-            <img src={imageUrl.dataUrl} alt="AI generated visualization" className="w-full h-auto object-cover rounded-lg shadow-md" />
+            <img src={imageUrl.dataUrl} alt="AI generated visualization" className="w-full aspect-square object-cover rounded-lg shadow-md" />
           ) : (
             <ImagePlaceholder />
           )}
         </div>
 
         {/* Text Section */}
-        <div className="p-4 bg-gray-900/50 rounded-md min-h-[80px] flex items-center justify-center">
+        <div className="p-4 bg-gray-900/50 rounded-md flex flex-col items-center justify-center text-center">
           {isLoadingText ? (
-            <div className="flex items-center text-gray-400">
+            <>
               <Spinner />
-              <span className="ml-3">Reconstructing text...</span>
-            </div>
+              <span className="mt-3 text-gray-400">Reconstructing text...</span>
+            </>
           ) : reconstructedText ? (
-            <p className="text-gray-300 italic text-center">"{reconstructedText}"</p>
+            <>
+              <p className="text-gray-300 italic">"{reconstructedText}"</p>
+              <p className="text-xs text-gray-500 mt-4">- AI-generated description</p>
+            </>
           ) : (
-             <div className="flex items-center text-gray-500">
+             <div className="flex flex-col items-center text-gray-500">
                 <TextIcon />
-                <span className="ml-2 text-sm">Reconstructed text will appear here.</span>
+                <span className="mt-2 text-sm">Reconstructed text will appear here.</span>
              </div>
           )}
         </div>

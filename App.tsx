@@ -309,20 +309,20 @@ function App() {
 
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-100 font-sans p-4 sm:p-6 lg:p-8">
-      <div className="container mx-auto max-w-7xl">
-        <header className="text-center mb-8">
-            <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+    <div className="min-h-screen bg-gray-900 text-gray-100 font-sans flex flex-col">
+      <div className="container mx-auto max-w-7xl p-4 sm:p-6 lg:p-8 flex flex-col flex-grow">
+        <header className="text-center mb-10 mt-10">
+            <h1 className="text-4xl sm:text-5xl font-bold">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
                 AI Thought Visualizer
               </span>
             </h1>
-            <p className="mt-2 text-gray-400 max-w-2xl mx-auto">
+            <p className="text-gray-400 max-w-2xl mx-auto mt-10 ">
               From human language, voice, or an image to a structured AI concept, then into a new visual and back to language.
             </p>
         </header>
 
-        <main>
+        <main className="flex-grow">
           <InputPanel 
             userInput={userInput}
             setUserInput={setUserInput}

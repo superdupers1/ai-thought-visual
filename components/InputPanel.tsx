@@ -48,7 +48,7 @@ const InputPanel: React.FC<InputPanelProps> = ({
 
   return (
     <div className="p-6 bg-gray-800/50 border border-gray-700 rounded-xl shadow-lg">
-      <label htmlFor="userInput" className="block text-sm font-medium text-gray-300 mb-2">
+    <label htmlFor="userInput" className="block text-lg font-semibold text-gray-300 mb-2">
         {isRecording ? (
             <span className="flex items-center">
               <span className="relative flex h-3 w-3 mr-2">
