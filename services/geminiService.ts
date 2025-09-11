@@ -1,11 +1,13 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { AIConcept } from '../types';
 
-if (!process.env.API_KEY) {
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+
+if (!API_KEY) {
   throw new Error("API_KEY environment variable not set");
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 const conceptSchema = {
   type: Type.OBJECT,

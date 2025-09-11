@@ -312,12 +312,14 @@ function App() {
     <div className="min-h-screen bg-gray-900 text-gray-100 font-sans p-4 sm:p-6 lg:p-8">
       <div className="container mx-auto max-w-7xl">
         <header className="text-center mb-8">
-          <h1 className="text-4xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
-            AI Thought Visualizer
-          </h1>
-          <p className="mt-2 text-gray-400 max-w-2xl mx-auto">
-            From human language, voice, or an image to a structured AI concept, then into a new visual and back to language.
-          </p>
+            <h1 className="text-4xl sm:text-5xl font-bold mb-4">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
+                AI Thought Visualizer
+              </span>
+            </h1>
+            <p className="mt-2 text-gray-400 max-w-2xl mx-auto">
+              From human language, voice, or an image to a structured AI concept, then into a new visual and back to language.
+            </p>
         </header>
 
         <main>
@@ -372,7 +374,7 @@ function App() {
         
         <footer className="text-center mt-12 text-gray-500">
           <p>Powered by Google Gemini & Imagen</p>
-           <a href="https://github.com/google/genai-js" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-purple-400 transition-colors mt-2">
+           <a href="https://github.com/vero-code/ai-thought-visual" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-purple-400 transition-colors mt-2">
             <GithubIcon />
             View on GitHub
           </a>
