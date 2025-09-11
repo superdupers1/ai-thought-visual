@@ -1,0 +1,7 @@
+{
+  "name": "AI Thought Visualizer",
+  "description": "An application that demonstrates multimodal reasoning by compressing human language into a structured AI concept, generating an image from it, and then expanding the concept back into a new human-readable description.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
