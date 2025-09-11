@@ -1,6 +1,6 @@
 
 import React, { useRef } from 'react';
-import { MicrophoneIcon, StopIcon, UploadIcon, XCircleIcon } from './Icons';
+import { MicrophoneIcon, SparklesIcon, StopIcon, UploadIcon, XCircleIcon } from './Icons';
 import { Spinner } from './Spinner';
 
 const IMAGE_STYLES = ["abstract", "cosmic", "watercolor", "neon", "minimal", "surreal", "impressionistic", "sci-fi"];
@@ -136,7 +136,10 @@ const InputPanel: React.FC<InputPanelProps> = ({
               Visualizing...
             </>
           ) : (
-            'Visualize Thought'
+            <>
+              <SparklesIcon className="-ml-1 mr-2 h-5 w-5" />
+              Visualize Thought
+            </>
           )}
         </button>
 
