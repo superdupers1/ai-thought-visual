@@ -84,7 +84,7 @@ const InputPanel: React.FC<InputPanelProps> = ({
 
       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="creativity" className="block text-sm font-medium text-gray-400">Creativity: <span className="font-semibold text-gray-200">{temperature.toFixed(1)}</span></label>
+          <label htmlFor="creativity" className="block text-sm font-medium text-gray-400 mb-3">Creativity: <span className="font-semibold text-gray-200">{temperature.toFixed(1)}</span></label>
           <input
             id="creativity"
             type="range"
@@ -98,18 +98,26 @@ const InputPanel: React.FC<InputPanelProps> = ({
           />
         </div>
         <div>
-          <label htmlFor="style" className="block text-sm font-medium text-gray-400">Style</label>
-          <select
-            id="style"
-            value={imageStyle}
-            onChange={(e) => setImageStyle(e.target.value)}
-            disabled={isProcessing}
-            className="w-full p-2 bg-gray-900 border border-gray-600 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-shadow disabled:opacity-50"
-          >
-            {IMAGE_STYLES.map(style => (
-              <option key={style} value={style} className="capitalize">{style.charAt(0).toUpperCase() + style.slice(1)}</option>
-            ))}
-          </select>
+          <label htmlFor="style" className="block text-sm font-medium text-gray-400 mb-1">Style</label>
+          <div className="relative">
+            <select
+              id="style"
+              value={imageStyle}
+              onChange={(e) => setImageStyle(e.target.value)}
+              disabled={isProcessing}
+              className="w-full p-2 pr-10 bg-gray-900 border border-gray-600 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-shadow disabled:opacity-50 appearance-none"
+            >
+              {IMAGE_STYLES.map(style => (
+                <option key={style} value={style}>{style.charAt(0).toUpperCase() + style.slice(1)}</option>
+              ))}
+            </select>
+            
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
+              <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
 

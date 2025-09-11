@@ -311,35 +311,42 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 font-sans flex flex-col">
       <div className="container mx-auto max-w-7xl p-4 sm:p-6 lg:p-8 flex flex-col flex-grow">
-        <header className="text-center mb-10 mt-10">
+        <header className="text-center mb-5">
             <h1 className="text-4xl sm:text-5xl font-bold">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">
                 AI Thought Visualizer
               </span>
             </h1>
-            <p className="text-gray-400 max-w-2xl mx-auto mt-10 ">
+            <p className="text-gray-400 max-w-2xl mx-auto mt-5">
               From human language, voice, or an image to a structured AI concept, then into a new visual and back to language.
             </p>
         </header>
 
         <main className="flex-grow">
-          <InputPanel 
-            userInput={userInput}
-            setUserInput={setUserInput}
-            onGenerate={handleGenerate}
-            onReset={handleReset}
-            isProcessing={isUiLocked}
-            isRecording={isRecording}
-            isTranscribing={isTranscribing}
-            onToggleRecording={handleToggleRecording}
-            onImageChange={handleImageChange}
-            uploadedImage={uploadedImage}
-            onClearImage={handleClearImage}
-            temperature={temperature}
-            setTemperature={setTemperature}
-            imageStyle={imageStyle}
-            setImageStyle={setImageStyle}
-          />
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <div className="lg:col-span-3">
+              <InputPanel 
+                userInput={userInput}
+                setUserInput={setUserInput}
+                onGenerate={handleGenerate}
+                onReset={handleReset}
+                isProcessing={isUiLocked}
+                isRecording={isRecording}
+                isTranscribing={isTranscribing}
+                onToggleRecording={handleToggleRecording}
+                onImageChange={handleImageChange}
+                uploadedImage={uploadedImage}
+                onClearImage={handleClearImage}
+                temperature={temperature}
+                setTemperature={setTemperature}
+                imageStyle={imageStyle}
+                setImageStyle={setImageStyle}
+              />
+            </div>
+            <div className="lg:col-span-2">
+              <ConceptPanel concept={aiConcept} isLoading={isLoadingConcept} />
+            </div>
+          </div>
 
           {history.length > 0 && (
             <HistoryPanel 
@@ -355,24 +362,21 @@ function App() {
             </div>
           )}
 
-          <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <ConceptPanel concept={aiConcept} isLoading={isLoadingConcept} />
-            <div className="lg:col-span-2">
-              <VisualizationPanel 
-                imageUrl={generatedImage} 
-                reconstructedText={reconstructedText}
-                isLoadingImage={isLoadingImage}
-                isLoadingText={isLoadingReconstruction}
-                onRegenerateImage={handleRegenerateImage}
-                isProcessing={isUiLocked}
-                hasConcept={!!aiConcept}
-                aiConcept={aiConcept}
-              />
-            </div>
+          <div className="mt-8">
+            <VisualizationPanel 
+              imageUrl={generatedImage} 
+              reconstructedText={reconstructedText}
+              isLoadingImage={isLoadingImage}
+              isLoadingText={isLoadingReconstruction}
+              onRegenerateImage={handleRegenerateImage}
+              isProcessing={isUiLocked}
+              hasConcept={!!aiConcept}
+              aiConcept={aiConcept}
+            />
           </div>
         </main>
         
-        <footer className="text-center mt-12 text-gray-500">
+        <footer className="text-center mt-8 text-gray-500">
           <p>Powered by Google Gemini & Imagen</p>
            <a href="https://github.com/vero-code/ai-thought-visual" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-purple-400 transition-colors mt-2">
             <GithubIcon />
