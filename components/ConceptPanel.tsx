@@ -20,7 +20,7 @@ const ConceptPanel: React.FC<ConceptPanelProps> = ({ concept, isLoading }) => {
     }
     if (concept) {
       return (
-        <pre className="font-mono bg-gray-900/70 p-4 rounded-md overflow-x-auto">
+        <pre className="font-mono bg-gray-900/70 p-4 rounded-md overflow-x-auto text-xs">
           <code className="text-pink-300">{JSON.stringify(concept, null, 2)}</code>
         </pre>
       );
