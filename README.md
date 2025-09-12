@@ -12,40 +12,35 @@ Inspired by the [**Google AI Studio Multimodal Challenge**](https://dev.to/chall
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4.svg?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
 
-## 🌟 Key Features
+## 🧠 How it Works
 
-* **Multimodal Input:** Start with a typed phrase, an uploaded image, or a voice recording.
-* **AI Concept Extraction:** Uses Google Gemini to deconstruct the input into a structured JSON "concept" containing elements, mood, setting, etc.
-* **Generative Visualization:** Uses Google Imagen to generate a unique visual representation of the AI concept in various artistic styles.
-* **Textual Reconstruction:** Employs Gemini again to write a new, poetic phrase based only on the structured AI concept.
-* **Creative Controls:** Adjust the "creativity" (temperature) and artistic style to influence the generated output.
-* **History Panel:** Your last 6 creations are automatically saved to your browser's local storage for easy access.
+**1. Start with an Idea (Multimodal Input)** Express your concept in one of three ways: type a phrase, upload an image, or make a voice recording.
 
-## 🧠 How it works
+**2. AI Analysis & Concept Creation** The Google Gemini AI analyzes your input and deconstructs it into a structured JSON `concept`, extracting key elements, mood, and atmosphere.
 
-1.  **Input**: type a phrase, upload an image, or record audio.
-    
-2. **Concept Extraction** → compact JSON:
-    
-   ```bash
-   {
-      "elements":  ["memory","dream","salt","summer rain"],
-      "emotion":  "melancholy",
-      "mood":  "ethereal",
-      "setting":  null,
-      "temperature":  "warm"
-      "time_of_day":  null,
-   }
-3. **Imagen Prompting**: JSON → dynamic prompt (+ chosen Style).
-    
-4. **Generative Visualization (Imagen)**: renders the artwork.
-    
-5. **Reconstruction (Gemini)**: new, poetic text based only on the JSON.
-    
-6. **Controls**: Creativity (temperature), Style presets, Regenerate (image-only or full).
-    
-7. **History**: last 6 creations in localStorage; quick restore/share/download.
+```bash
+{
+  "elements":    ["memory", "dream", "salt", "summer rain"],
+  "emotion":     "melancholy",
+  "mood":        "ethereal",
+  "setting":     null,
+  "temperature": "warm",
+  "time_of_day": null
+}
+```
 
+**3. Dual Creation: Image & Text** Based on this JSON concept, two creative processes unfold:
+
+-   **Visualization:** Google Imagen generates a unique visual artwork in your chosen artistic style.
+    
+-   **Reconstruction:** Gemini writes a new, poetic phrase based solely on the data within the concept.
+    
+
+**4. Creative Control & History**
+
+-   **Fine-Tune the Output:** Adjust the "creativity" (temperature) and select from various artistic styles to influence the outcome.
+    
+-   **Access Your History:** Your last 6 creations are automatically saved to the browser's local storage for easy access, downloading, or sharing.
 
 
 ## 💻 Tech Stack
@@ -54,7 +49,7 @@ Inspired by the [**Google AI Studio Multimodal Challenge**](https://dev.to/chall
 
 -   **Development Environment:** Google AI Studio
     
--   **AI Models:** Google Gemini 2.5 Pro & Imagen APIs
+-   **AI Models:** Google Gemini 2.5 Flash & Imagen APIs
     
 -   **Deployment:** Google Cloud Run
  
