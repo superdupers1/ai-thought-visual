@@ -1,13 +1,33 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { AIConcept } from '../types';
 
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const getApiKey = (() => {
+  let apiKey: string | null = null;
+  return async () => {
+    if (apiKey) return apiKey;
 
-if (!API_KEY) {
-  throw new Error("API_KEY environment variable not set");
+    try {
+      const response = await fetch('/api/key');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      if (!data.apiKey) {
+        throw new Error("API key not found in server response.");
+      }
+      apiKey = data.apiKey;
+      return apiKey;
+    } catch (error) {
+      console.error("Failed to fetch API key:", error);
+      throw new Error("Could not fetch API key from the server. Please check server logs.");
+    }
+  };
+})();
+
+async function getGenAI() {
+  const apiKey = await getApiKey();
+  return new GoogleGenAI({ apiKey: apiKey });
 }
-
-const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 const conceptSchema = {
   type: Type.OBJECT,
@@ -86,8 +106,8 @@ export function compressImage(base64Str: string, quality = 0.85, maxWidth = 1024
   });
 }
 
-
 export async function transcribeAudio(audioBlob: Blob): Promise<string> {
+  const genAI = await getGenAI();
   const audioData = await blobToBase64(audioBlob);
   
   const audioPart = {
@@ -101,7 +121,7 @@ export async function transcribeAudio(audioBlob: Blob): Promise<string> {
       text: "Transcribe this audio recording accurately. The output should be only the transcribed text, with no additional commentary.",
   };
 
-  const response = await ai.models.generateContent({
+  const response = await genAI.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: { parts: [textPart, audioPart] },
   });
@@ -123,6 +143,7 @@ async function parseConceptResponse(responseText: string): Promise<AIConcept> {
 }
 
 export async function extractConceptFromImage(imageFile: File, temperature: number): Promise<AIConcept> {
+  const genAI = await getGenAI();
   const imageData = await blobToBase64(imageFile);
   
   const imagePart = {
@@ -136,7 +157,7 @@ export async function extractConceptFromImage(imageFile: File, temperature: numb
     text: "Extract key concepts from this image: describe objects, mood, setting, time of day, and overall atmosphere. Return strict JSON with fields {emotion, elements[], setting, time_of_day, mood, temperature}."
   };
 
-  const response = await ai.models.generateContent({
+  const response = await genAI.models.generateContent({
     model: 'gemini-2.5-flash',
     contents: { parts: [imagePart, textPart] },
     config: {
@@ -149,11 +170,11 @@ export async function extractConceptFromImage(imageFile: File, temperature: numb
   return parseConceptResponse(response.text);
 }
 
-
 export async function extractConcept(userInput: string, temperature: number): Promise<AIConcept> {
+  const genAI = await getGenAI();
   const prompt = `Analyze the following phrase and extract its core concepts into a strict JSON object that adheres to the provided schema. The phrase is: "${userInput}". Only return the JSON object, with no additional text, explanation, or markdown formatting.`;
 
-  const response = await ai.models.generateContent({
+  const response = await genAI.models.generateContent({
     model: 'gemini-2.5-flash',
     contents: prompt,
     config: {
@@ -167,10 +188,11 @@ export async function extractConcept(userInput: string, temperature: number): Pr
 }
 
 export async function generateImageFromConcept(concept: AIConcept, style: string): Promise<{ dataUrl: string, originalUrl: string | null }> {
+  const genAI = await getGenAI();
   const elementsString = concept.elements.join(', ');
   const prompt = `Create a visually striking digital art piece in a ${style} style. It should be an ethereal and metaphorical representation of the following concepts, not a literal depiction. Embody a mood of "${concept.mood || 'neutral'}" with an emotion of "${concept.emotion || 'ambiguous'}". The scene involves: ${elementsString}. The setting is ${concept.setting || 'abstract'}, during the ${concept.time_of_day || 'undefined time'}. The feeling of temperature is ${concept.temperature || 'neutral'}. Focus on dynamic colors, light, and texture.`;
 
-  const response = await ai.models.generateImages({
+  const response = await genAI.models.generateImages({
     model: 'imagen-4.0-generate-001',
     prompt: prompt,
     config: {
@@ -184,7 +206,6 @@ export async function generateImageFromConcept(concept: AIConcept, style: string
     const generatedImage = response.generatedImages[0];
     const base64ImageBytes = generatedImage.image.imageBytes;
     const dataUrl = `data:image/png;base64,${base64ImageBytes}`;
-    // FIX: Property 'url' does not exist on type 'GeneratedImage'. The property has been removed from the SDK.
     const originalUrl = null;
     return { dataUrl, originalUrl };
   } else {
@@ -193,9 +214,10 @@ export async function generateImageFromConcept(concept: AIConcept, style: string
 }
 
 export async function reconstructTextFromConcept(concept: AIConcept, temperature: number): Promise<string> {
+  const genAI = await getGenAI();
   const prompt = `Based *only* on the following JSON object representing a concept, write a short, evocative, and poetic description in one or two sentences. Do not mention that it's based on JSON. The description should be imaginative and flow naturally. JSON: ${JSON.stringify(concept)}`;
 
-  const response = await ai.models.generateContent({
+  const response = await genAI.models.generateContent({
     model: 'gemini-2.5-flash',
     contents: prompt,
     config: {

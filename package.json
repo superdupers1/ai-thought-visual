@@ -6,16 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "node server.js",
     "preview": "vite preview"
   },
   "dependencies": {
     "@google/genai": "^1.19.0",
-    "@types/react": "^19.1.12",
+    "express": "^4.19.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
+    "@types/react": "^19.1.12",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }
