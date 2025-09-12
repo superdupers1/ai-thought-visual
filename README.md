@@ -4,7 +4,7 @@
 
 # AI Thought Visualizer ✨
 
-Inspired by the [**Google AI Studio Multimodal Challenge**](https://dev.to/challenges/google-ai-studio-2025-09-03), this is an experimental web application that transforms human language, voice, or images into structured AI concepts, then visualizes them with generative art and reconstructs them back into poetic language.
+Inspired by the [**Google AI Studio Multimodal Challenge**](https://dev.to/vero-code/ai-thought-visualizer-id1), this is an experimental web application that transforms human language, voice, or images into structured AI concepts, then visualizes them with generative art and reconstructs them back into poetic language.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6.svg?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -121,6 +121,8 @@ The application should now be running on `http://localhost:5173` (or another por
     
 -   **Rate limits**: handle 429/5xx with a retry.
 
+## 🎥 Demo Video
+▶️ [Watch on YouTube](https://youtu.be/VN_FYk3L-QI)
 
 ## 📄 License
 
